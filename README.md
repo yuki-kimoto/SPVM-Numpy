@@ -1,4 +1,3 @@
 # SPVM::Numpy
 
-SPVM::Numpy is a SPVM module.
-
+Numpy is the Python/NumPy porting to Perl/SPVM

@@ -6,11 +6,13 @@ our $VERSION = '0.01';
 
 =head1 Name
 
-SPVM::Numpy - Numpy is a SPVM module
+SPVM::Numpy - Numpy is the Python/NumPy porting to Perl/SPVM
 
 =head1 Usage
 
   use Numpy;
+  
+  my $np = Numpy->new;
   
 =head1 Description
 
