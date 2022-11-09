@@ -16,7 +16,9 @@ SPVM::Numpy - Numpy is the Python/NumPy porting to Perl/SPVM
   
 =head1 Description
 
-C<Numpy> is a L<SPVM> module.
+Numpy is the Python/NumPy porting to Perl/SPVM.
+
+This module is yet experimental stage. Methods will be added gradually.
 
 =head1 Fields
 
