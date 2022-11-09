@@ -1,5 +1,5 @@
 class Numpy {
-  static method new : Numpy {
+  static method new : Numpy () {
     my $self = new Numpy;
     
     return $self;
