@@ -1,0 +1,36 @@
+class Numpy::Ndarray {
+  use Hash;
+  use Numpy::Constant::DataType as DTYPE;
+  use Numpy::Constant::Order as ORDER;
+  
+  has T : byte;
+  has data : mutable string;
+  has dtype : byte;
+  has flags : Hash;
+  has flat : object;
+  has imag : Numpy::Ndarray;
+  has real : Numpy::Ndarray;
+  has size : int;
+  has itemsize : int;
+  has nbytes : int;
+  has ndim : int;
+  has shape : int[];
+  has strides : int[];
+  has ctypes : int;
+  has base : Numpy::Ndarray;
+  
+  static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : int, $order = -1 : int) {
+    
+    if ($dtype == -1) {
+      $dtype = DTYPE->FLOAT64;
+    }
+
+    if ($order == -1) {
+      $order = ORDER->C;
+    }
+    
+    my $ndarray = new Numpy::Ndarray;
+    
+    return $ndarray;
+  }
+}

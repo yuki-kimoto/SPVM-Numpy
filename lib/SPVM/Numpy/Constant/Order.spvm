@@ -1,0 +1,6 @@
+class Numpy::Constant::Order {
+  enum {
+    C,
+    F,
+  }
+}

@@ -1,4 +1,6 @@
 class Numpy {
+  use Numpy::Ndarray;
+  
   static method new : Numpy () {
     my $self = new Numpy;
     
