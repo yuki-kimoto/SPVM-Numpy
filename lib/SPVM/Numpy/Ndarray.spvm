@@ -1,36 +1,220 @@
 class Numpy::Ndarray {
   use Hash;
-  use Numpy::Constant::DataType as DTYPE;
+  use Numpy::Constant::Dtype as DTYPE;
   use Numpy::Constant::Order as ORDER;
   
-  has T : byte;
+  has T : rw byte;
   has data : mutable string;
   has dtype : byte;
-  has flags : Hash;
-  has flat : object;
-  has imag : Numpy::Ndarray;
-  has real : Numpy::Ndarray;
-  has size : int;
-  has itemsize : int;
-  has nbytes : int;
-  has ndim : int;
   has shape : int[];
-  has strides : int[];
-  has ctypes : int;
-  has base : Numpy::Ndarray;
+
+  has flags_C_CONTIGUOUS : ro byte;
+  has flags_F_CONTIGUOUS : ro byte;
+  has flags_OWNDATA : ro byte;
+  has flags_WRITEABLE : ro byte;
+  has flags_ALIGNED : ro byte;
+  has flags_FNC : ro byte;
+  has flags_FORC : ro byte;
+  has flags_BEHAVED : ro byte;
+  has flags_CARRAY : ro byte;
+  has flags_FARRAY : ro byte;
   
-  static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : int, $order = -1 : int) {
+  private static method culc_itemsize  : int ($dtype : byte) {
+    
+    my $itemsize = 0;
+    
+    switch ($dtype) {
+      case DTYPE->BOOL8 : {
+        $itemsize = 1;
+      }
+      case DTYPE->INT8: {
+        $itemsize = 1;
+      }
+      case DTYPE->INT16: {
+        $itemsize = 2;
+      }
+      case DTYPE->INT32: {
+        $itemsize = 4;
+      }
+      case DTYPE->INT64: {
+        $itemsize = 8;
+      }
+      case DTYPE->UINT8: {
+        $itemsize = 1;
+      }
+      case DTYPE->UINT16: {
+        $itemsize = 2;
+      }
+      case DTYPE->UINT32: {
+        $itemsize = 4;
+      }
+      case DTYPE->UINT64: {
+        $itemsize = 8;
+      }
+      case DTYPE->INTP: {
+        die "Not yet implemented";
+      }
+      case DTYPE->UINTP: {
+        die "Not yet implemented";
+      }
+      case DTYPE->FLOAT16: {
+        $itemsize = 2;
+      }
+      case DTYPE->FLOAT32: {
+        $itemsize = 4;
+      }
+      case DTYPE->FLOAT64: {
+        $itemsize = 8;
+      }
+      case DTYPE->FLOAT96: {
+        $itemsize = 12;
+      }
+      case DTYPE->FLOAT128: {
+        $itemsize = 16;
+      }
+      case DTYPE->COMPLEX64: {
+        $itemsize = 8;
+      }
+      case DTYPE->COMPLEX128: {
+        $itemsize = 16;
+      }
+      case DTYPE->COMPLEX192: {
+        $itemsize = 24;
+      }
+      case DTYPE->COMPLEX256: {
+        $itemsize = 32;
+      }
+      default : {
+        die "Unrecognized dtype $dtype";
+      }
+    }
+    
+    return $itemsize;
+  }
+
+  private static method culc_ndim : int ($shape : int[]) {
+    unless ($shape) {
+      die "The \$shape must be defined";
+    }
+    
+    my $ndim = @$shape;
+    
+    return $ndim;
+  }
+
+  private static method culc_size : int ($shape : int[]) {
+    unless ($shape) {
+      die "The \$shape must be defined";
+    }
+    
+    my $size = 1;
+    for my $dim (@$shape) {
+      unless ($dim > 0) {
+        die "The element of the \$shape must be greater than 0";
+      }
+      $size *= $dim;
+    }
+    
+    return $size;
+  }
+  
+  static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : byte) {
     
     if ($dtype == -1) {
       $dtype = DTYPE->FLOAT64;
     }
 
-    if ($order == -1) {
-      $order = ORDER->C;
-    }
-    
     my $ndarray = new Numpy::Ndarray;
+    $ndarray->{dtype} = $dtype;
     
     return $ndarray;
   }
+
+=pod
+
+  method ndim : Numpy::Ndarray () {
+    my $shape = $self->{shape};
+    
+    my $ndim = &culc_ndim($shape);
+    
+    return $ndim;
+  }
+
+  method strides : Numpy::Ndarray () {
+    my $shape = $self->{shape};
+    
+    my $strides = &culc_strides($shape);
+    
+    return $strides;
+  }
+
+  method len : Numpy::Ndarray () {
+    my $shape = $self->{shape};
+    
+    my $len = $shape->[0];
+    
+    return $len;
+  }
+
+  method flat : Numpy::Ndarray () {
+    my $shape = $self->{shape};
+    
+    my $len = $shape->[0];
+    
+    return $len;
+  }
+
+  method real : Numpy::Ndarray () {
+    my $shape = $self->{shape};
+    
+    my $len = $shape->[0];
+    
+    return $len;
+  }
+
+  method imag : Numpy::Ndarray () {
+    my $shape = $self->{shape};
+    
+    my $len = $shape->[0];
+    
+    return $len;
+  }
+
+  method itemsize : Numpy::Ndarray () {
+    my $dtype = $self->{dtype};
+    
+    my $itemsize = &culc_itemsize($dtype);
+    
+    return $itemsize;
+  }
+
+  method nbytes : Numpy::Ndarray () {
+    my $nbytes = $self->{dtype};
+    
+    my $itemsize = &culc_itemsize($dtype);
+    my $size = &culc_size($dtype);
+    
+    my $nbytes = $itemsize * $size;
+    
+    return $nbytes;
+  }
+
+  method strides : Numpy::Ndarray () {
+    my $shape = $self->{shape};
+    
+    my $itemsize = &culc_itemsize($dtype);
+    
+    my $ndim = @$shape;
+    
+    my $strides = new int[$ndim];
+    
+    for (my $i = 0; $i < $ndim; $i++) {
+      $strides->[$i] = $shape->[$i] * $itemsize;
+    }
+    
+    return $strides;
+  }
+
+=cut
+
 }

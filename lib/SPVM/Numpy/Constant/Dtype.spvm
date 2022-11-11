@@ -1,4 +1,4 @@
-class Numpy::Constant::DataType {
+class Numpy::Constant::Dtype {
   enum {
     BOOL8,
     INT8,

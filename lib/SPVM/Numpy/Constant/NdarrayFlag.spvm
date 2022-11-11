@@ -1,0 +1,10 @@
+class Numpy::Constant::NdarrayFlag {
+  enum {
+    C_CONTIGUOU,
+    F_CONTIGUOUS,
+    OWNDATA,
+    WRITEABLE,
+    ALIGNED,
+    UPDATEIFCOPY,
+  }
+}
