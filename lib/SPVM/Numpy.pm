@@ -26,7 +26,9 @@ This module is yet experimental stage. Methods will be added gradually.
 
 =head1 Class Methods
 
+=head2 zeros
 
+  static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : byte);
 
 =head1 Instance Methods
 

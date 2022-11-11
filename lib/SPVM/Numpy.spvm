@@ -6,4 +6,12 @@ class Numpy {
     
     return $self;
   }
+  
+  static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : byte) {
+    
+    my $ndarray = Numpy::Ndarray->new_zeros($shape, $dtype);
+    
+    return $ndarray ;
+  }
+  
 }

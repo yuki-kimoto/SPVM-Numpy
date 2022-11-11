@@ -1,0 +1,111 @@
+class Numpy::Util {
+  use Numpy::Constant::Dtype as DTYPE;
+  
+  private static method get_ndarray_itemsize  : int ($dtype : int) {
+    
+    my $itemsize = 0;
+    
+    switch ($dtype) {
+      case DTYPE->BOOL8 : {
+        $itemsize = 1;
+      }
+      case DTYPE->INT8: {
+        $itemsize = 1;
+      }
+      case DTYPE->INT16: {
+        $itemsize = 2;
+      }
+      case DTYPE->INT32: {
+        $itemsize = 4;
+      }
+      case DTYPE->INT64: {
+        $itemsize = 8;
+      }
+      case DTYPE->UINT8: {
+        $itemsize = 1;
+      }
+      case DTYPE->UINT16: {
+        $itemsize = 2;
+      }
+      case DTYPE->UINT32: {
+        $itemsize = 4;
+      }
+      case DTYPE->UINT64: {
+        $itemsize = 8;
+      }
+      case DTYPE->INTP: {
+        die "Not yet implemented";
+      }
+      case DTYPE->UINTP: {
+        die "Not yet implemented";
+      }
+      case DTYPE->FLOAT16: {
+        $itemsize = 2;
+      }
+      case DTYPE->FLOAT32: {
+        $itemsize = 4;
+      }
+      case DTYPE->FLOAT64: {
+        $itemsize = 8;
+      }
+      case DTYPE->FLOAT96: {
+        $itemsize = 12;
+      }
+      case DTYPE->FLOAT128: {
+        $itemsize = 16;
+      }
+      case DTYPE->COMPLEX64: {
+        $itemsize = 8;
+      }
+      case DTYPE->COMPLEX128: {
+        $itemsize = 16;
+      }
+      case DTYPE->COMPLEX192: {
+        $itemsize = 24;
+      }
+      case DTYPE->COMPLEX256: {
+        $itemsize = 32;
+      }
+      default : {
+        die "Unrecognized dtype $dtype";
+      }
+    }
+    
+    return $itemsize;
+  }
+
+  private static method calc_ndarray_ndim : int ($shape : int[]) {
+    unless ($shape) {
+      die "The \$shape must be defined";
+    }
+    
+    my $ndim = @$shape;
+    
+    return $ndim;
+  }
+
+  private static method calc_ndarray_size : int ($shape : int[]) {
+    unless ($shape) {
+      die "The \$shape must be defined";
+    }
+    
+    my $size = 1;
+    for my $dim (@$shape) {
+      unless ($dim > 0) {
+        die "The element of the \$shape must be greater than 0";
+      }
+      $size *= $dim;
+    }
+    
+    return $size;
+  }
+
+  static method calc_ndarray_nbytes : int ($shape : int[], $dtype : int) {
+    my $itemssize = &get_ndarray_itemsize($dtype);
+    my $size = &calc_ndarray_size($shape);
+    
+    my $nbytes = $itemssize * $size;
+    
+    return $nbytes;
+  }
+}
