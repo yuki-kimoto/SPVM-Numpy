@@ -9,9 +9,16 @@ class Numpy {
   
   static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : byte) {
     
-    my $ndarray = Numpy::Ndarray->new_zeros($shape, $dtype);
+    my $zeros = Numpy::Ndarray->new_zeros($shape, $dtype);
     
-    return $ndarray ;
+    return $zeros;
+  }
+
+  static method zeros_like : Numpy::Ndarray ($a : Numpy::Ndarray) {
+    
+    my $zeros = Numpy::Ndarray->new_zeros_like($a);
+    
+    return $zeros;
   }
   
 }

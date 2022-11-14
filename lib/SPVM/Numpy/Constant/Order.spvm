@@ -2,5 +2,7 @@ class Numpy::Constant::Order {
   enum {
     C,
     F,
+    A,
+    K,
   }
 }

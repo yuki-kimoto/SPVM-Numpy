@@ -6,8 +6,8 @@ class Numpy::Ndarray {
   has T : rw byte;
   has data : mutable string;
   has dtype : byte;
-  has shape : int[];
-
+  has shape : ro int[];
+  
   has flags_C_CONTIGUOUS : ro byte;
   has flags_F_CONTIGUOUS : ro byte;
   has flags_OWNDATA : ro byte;
@@ -34,6 +34,16 @@ class Numpy::Ndarray {
     $self->{data} = $data;
     
     return $self;
+  }
+
+  static method new_zeros_like : Numpy::Ndarray ($a : Numpy::Ndarray) {
+    
+    my $shape = $a->{shape};
+    my $dtype = $a->{dtype};
+    
+    my $new_zeros = &new_zeros($shape, $dtype);
+    
+    return $new_zeros;
   }
 
 =pod
