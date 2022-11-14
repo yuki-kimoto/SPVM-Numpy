@@ -30,6 +30,10 @@ This module is yet experimental stage. Methods will be added gradually.
 
   static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : byte);
 
+=head2 zeros_like
+
+  static method zeros_like : Numpy::Ndarray ($a : Numpy::Ndarray);
+
 =head1 Instance Methods
 
 
