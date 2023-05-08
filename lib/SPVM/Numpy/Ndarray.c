@@ -11,13 +11,13 @@ int32_t SPVM__Numpy__Ndarray__new_ones(SPVM_ENV* env, SPVM_VALUE* stack) {
   void* obj_shape = stack[0].oval;
   
   if (!obj_shape) {
-    return env->die(env, stack, "The $shape must be defined", FILE_NAME, __LINE__);
+    return env->die(env, stack, "The $shape must be defined", __func__, FILE_NAME, __LINE__);
   }
   
   int32_t dtype = stack[1].ival;
   
   if (dtype == -1) {
-    e = env->call_class_method_by_name(env, stack, "Numpy::Constant::Dtype", "FLOAT64", 0, FILE_NAME, __LINE__);
+    e = env->call_class_method_by_name(env, stack, "Numpy::Constant::Dtype", "FLOAT64", 0, __func__, FILE_NAME, __LINE__);
     if (e) { return e; }
     dtype = stack[0].ival;
   }
@@ -26,7 +26,7 @@ int32_t SPVM__Numpy__Ndarray__new_ones(SPVM_ENV* env, SPVM_VALUE* stack) {
   {
     stack[0].oval = obj_shape;
     stack[1].ival = dtype;
-    e = env->call_class_method_by_name(env, stack, "Numpy::Util", "calc_ndarray_nbytes", 2, FILE_NAME, __LINE__);
+    e = env->call_class_method_by_name(env, stack, "Numpy::Util", "calc_ndarray_nbytes", 2, __func__, FILE_NAME, __LINE__);
     if (e) { return e; }
     nbytes = stack[0].ival;
   }
@@ -36,7 +36,7 @@ int32_t SPVM__Numpy__Ndarray__new_ones(SPVM_ENV* env, SPVM_VALUE* stack) {
   int32_t itemsize;
   {
     stack[0].ival = dtype;
-    e = env->call_class_method_by_name(env, stack, "Numpy::Util", "get_ndarray_itemsize", 1, FILE_NAME, __LINE__);
+    e = env->call_class_method_by_name(env, stack, "Numpy::Util", "get_ndarray_itemsize", 1, __func__, FILE_NAME, __LINE__);
     if (e) { return e; }
     itemsize = stack[0].ival;
   }
@@ -106,15 +106,15 @@ int32_t SPVM__Numpy__Ndarray__new_ones(SPVM_ENV* env, SPVM_VALUE* stack) {
       break;
     }
     INTP: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
     UINTP: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
     FLOAT16: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
     FLOAT32: {
@@ -132,38 +132,38 @@ int32_t SPVM__Numpy__Ndarray__new_ones(SPVM_ENV* env, SPVM_VALUE* stack) {
       break;
     }
     FLOAT96: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
     FLOAT128: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
     COMPLEX64: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
     COMPLEX128: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
     COMPLEX192: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
     COMPLEX256: {
-      return env->die(env, stack, "Not implemented", FILE_NAME, __LINE__);
+      return env->die(env, stack, "Not implemented", __func__, FILE_NAME, __LINE__);
       break;
     }
   }
   
-  void* obj_self = env->new_object_by_name(env, stack, "Numpy::Ndarray", &e, FILE_NAME, __LINE__);
+  void* obj_self = env->new_object_by_name(env, stack, "Numpy::Ndarray", &e, __func__, FILE_NAME, __LINE__);
   if (e) { return e; }
   
-  env->set_field_byte_by_name(env, stack, obj_data, "dtype", dtype, &e, FILE_NAME, __LINE__);
+  env->set_field_byte_by_name(env, stack, obj_data, "dtype", dtype, &e, __func__, FILE_NAME, __LINE__);
   if (e) { return e; }
   
-  env->set_field_object_by_name(env, stack, obj_data, "data", obj_data, &e, FILE_NAME, __LINE__);
+  env->set_field_object_by_name(env, stack, obj_data, "data", obj_data, &e, __func__, FILE_NAME, __LINE__);
   if (e) { return e; }
   
   stack[0].oval = obj_self;
