@@ -7,7 +7,7 @@ class Numpy {
     return $self;
   }
   
-  static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : byte) {
+  static method zeros : Numpy::Ndarray ($shape : int[], $dtype : byte = -1) {
     
     my $zeros = Numpy::Ndarray->new_zeros($shape, $dtype);
     

@@ -19,7 +19,7 @@ class Numpy::Ndarray {
   has flags_CARRAY : ro byte;
   has flags_FARRAY : ro byte;
 
-  static method new_zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : byte) {
+  static method new_zeros : Numpy::Ndarray ($shape : int[], $dtype : byte = -1) {
     
     if ($dtype == -1) {
       $dtype = DTYPE->FLOAT64;

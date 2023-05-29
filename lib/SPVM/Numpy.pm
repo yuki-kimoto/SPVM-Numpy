@@ -28,7 +28,7 @@ This module is yet experimental stage. Methods will be added gradually.
 
 =head2 zeros
 
-  static method zeros : Numpy::Ndarray ($shape : int[], $dtype = -1 : byte);
+  static method zeros : Numpy::Ndarray ($shape : int[], $dtype : byte = -1);
 
 =head2 zeros_like
 
